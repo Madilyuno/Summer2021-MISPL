@@ -28,19 +28,19 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 
-# torch.manual_seed(1)
-#
-# z = torch.FloatTensor([1, 2, 3])
-#
-# hypothesis = F.softmax(z, dim=0)
-# hypothesis.sum()
-#
-# z = torch.rand(3, 5, requires_grad=True)
-# hypothesis = F.softmax(z, dim=1)
-#
-# y = torch.randint(5, (3,)).long()
-# y_one_hot = torch.zeros_like(hypothesis)
-# y_one_hot.scatter_(1, y.unsqueeze(1), 1)
+torch.manual_seed(1)
+
+z = torch.FloatTensor([1, 2, 3])
+
+hypothesis = F.softmax(z, dim=0)
+hypothesis.sum()
+
+z = torch.rand(3, 5, requires_grad=True)
+hypothesis = F.softmax(z, dim=1)
+
+y = torch.randint(5, (3,)).long()
+y_one_hot = torch.zeros_like(hypothesis)
+y_one_hot.scatter_(1, y.unsqueeze(1), 1)
 
 x_train = [[1, 2, 1, 1],
            [2, 1, 3, 2],
@@ -60,17 +60,17 @@ y_one_hot.scatter_(1, y_train.unsqueeze(1), 1)
 W = torch.zeros((4, 3), requires_grad=True) # 8 by 4 Matmul W = 8 by 3 --> W must be 4 by 3
 b = torch.zeros(1, requires_grad=True)
 
-# for epoch in range(epochs + 1) :
-#     z = x_train.matmul(W) + b
-#     cost = F.cross_entropy(z, y_train)  # Cross Entropy Function consist of Cost Function and Softmax Function
-#                                         # The reason why we don't need to make seperated softmax function
-#
-#     optimizer.zero_grad()
-#     cost.backward()
-#     optimizer.step()
-#
-#     if epoch % 100 == 0 :
-#         print('Epoch {:4d}/{} Cost {:.6f}'.format(epoch, epochs, cost.item()))
+for epoch in range(epochs + 1) :
+    z = x_train.matmul(W) + b
+    cost = F.cross_entropy(z, y_train)  # Cross Entropy Function consist of Cost Function and Softmax Function
+                                        # The reason why we don't need to make seperated softmax function
+
+    optimizer.zero_grad()
+    cost.backward()
+    optimizer.step()
+
+    if epoch % 100 == 0 :
+        print('Epoch {:4d}/{} Cost {:.6f}'.format(epoch, epochs, cost.item()))
 
 class SoftmaxClassifierModel(nn.Module):
     def __init__(self):
