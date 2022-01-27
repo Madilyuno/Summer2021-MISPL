@@ -1,4 +1,4 @@
-# summer2021
+# Summer Internship
 This project is about summer intership in MISPL, 2021
 
 ## Deep Learning Basic
